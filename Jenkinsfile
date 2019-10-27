@@ -3,7 +3,7 @@ pipeline {
     tools {
         maven 'localMaven'
         jdk 'localJDK'
-        DockerTool {
+        org.jenkinsci.plugins.docker.commons.tools.DockerTool {
             label 'windows'
             image 'mcr.microsoft.com/powershell'
         }
