@@ -1,13 +1,12 @@
 pipeline {
-    agent {
+    agent any
+    tools {
+        maven 'localMaven'
+        jdk 'localJDK'
         docker {
             label 'windows'
             image 'mcr.microsoft.com/powershell'
         }
-    }
-    tools {
-        maven 'localMaven'
-        jdk 'localJDK'
     }
     environment {
         registry = "nedaljed/myimage"
