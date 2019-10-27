@@ -54,6 +54,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
+                    echo "ici"
                     dockerImage = docker.build(registry + ":$BUILD_NUMBER")
                 }
             }
