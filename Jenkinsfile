@@ -4,6 +4,10 @@ pipeline {
         maven 'localMaven'
         jdk 'localJDK'
     }
+    docker {
+        label 'windows'
+        image 'mcr.microsoft.com/powershell'
+    }
     environment {
         registry = "nedaljed/myimage"
         registryCredential = 'dockerhub'
