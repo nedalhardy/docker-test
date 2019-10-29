@@ -63,7 +63,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
-                    docker.withRegistry('', registryCredential) {
+                    docker.withRegistry('https://registry.hub.docker.com','nedaljed') {
                         dockerImage.push()
                     }
                 }
