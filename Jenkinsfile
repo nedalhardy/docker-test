@@ -3,10 +3,6 @@ pipeline {
     tools {
         maven 'localMaven'
         jdk 'localJDK'
-        org.jenkinsci.plugins.docker.commons.tools.DockerTool {
-            label 'windows'
-            image 'mcr.microsoft.com/powershell'
-        }
     }
     environment {
         registry = "nedaljed/myimage"
@@ -21,13 +17,13 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                bat 'mvn clean verify'
+                sh 'mvn clean verify'
             }
         }
         stage("sonar") {
             steps {
                 withSonarQubeEnv('sonarQube') {
-                    bat 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
@@ -45,7 +41,7 @@ pipeline {
         }
         stage("package") {
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -75,7 +71,7 @@ pipeline {
         }
         stage('Remove Unused docker image') {
             steps {
-                bat "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
 
